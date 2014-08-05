@@ -16,12 +16,20 @@ rl.on('line', function(line) {
 
   var entry = line.trim();
 
-  console.log( entry );
+  var _args = entry.split( " " );
+  var _command = _args.splice( 0, 1 ) || [ '/bin/bash' ];
+
+  console.log( '_command', _command );
+  console.log( '_args', _args );
 
   switch(line.trim()) {
 
     case 'hello':
       console.log('world!');
+    break;
+
+    case 'hosts':
+      console.log('...wip...');
     break;
 
     case 'info':
@@ -43,7 +51,7 @@ rl.on('line', function(line) {
         break;
       }
 
-      module.exports.currentChild = require('child_process').spawn( entry, [], {
+      module.exports.currentChild = require( 'child_process' ).spawn( _command[0], _args, {
         stdio: 'inherit'
       });
 
